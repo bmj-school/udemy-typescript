@@ -1,5 +1,19 @@
+
+// type AddFn = (a: number, b: number) => number
+// Special syntax for a function interface, instead of using 'type'
+interface AddFn {
+  (a: number, b: number): number
+}
+
+let add: AddFn
+
+add = (n1: number, n2: number) => {
+  return n1 + n2
+}
+
 interface Named {
-  readonly name: string
+  readonly name?: string
+  outputName?: string
 }
 
 interface Greetable extends Named {
@@ -7,15 +21,22 @@ interface Greetable extends Named {
 }
 
 class Person implements Greetable {
-  name: string
+  name?: string
   age = 30
 
   constructor(n: string) {
-    this.name = n
+    if (n) {
+      this.name = n
+    }
   }
 
   greet(phrase: string) {
-    console.log(phrase + ' ' + this.name)
+    if (this.name) {
+      console.log(phrase + ' ' + this.name)
+    } else {
+      console.log('Hi')
+      
+    }
   }
 }
 
